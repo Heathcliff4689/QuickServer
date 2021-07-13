@@ -1,6 +1,9 @@
 #include <iostream>
+#include <vector>
 
 #include "utils.h"
+#include "HTTPSession.h"
+#include "ThreadPool.h"
 
 int main()
 {
@@ -9,6 +12,8 @@ int main()
     int lfd = initSocket(ip, port);
 
     epoll_event events[MAX_EVENT_NUMBER];
+    std::vector<HTTPSession> Sess(MAX_FD);
+    ThreadPool pool;
 
     int epfd = epoll_create(5);
     if (epfd < 0)
@@ -48,6 +53,37 @@ int main()
             else
             {
                 /* other actions */
+                if(events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
+                {
+                    /* errors */
+                    removeFd(epfd, sockfd);
+                    Sess[sockfd].reset();
+                }
+                else if(events[i].events & EPOLLIN)
+                {
+                    /* read */
+                    if(readmsg(sockfd, Sess[sockfd].msg) != 1)
+                    {
+                        /* read finish or error*/
+                        removeFd(epfd, sockfd);
+                    }
+
+                    pool.addTask(std::bind(
+                        &HTTPSession::praseHttpRequest, &Sess[sockfd], 
+                        Sess[sockfd].msg,
+                        Sess[sockfd].request
+                    ));
+                    
+                }
+                else if(events[i].events & EPOLLOUT)
+                {
+                    /* write */
+                }
+                else
+                {
+                    /* others */
+                }
+
             }
         }
     }

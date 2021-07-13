@@ -69,3 +69,34 @@ void modFd(int epfd, int fd, int EVENT, bool oneshoot = true)
     }
     epoll_ctl(epfd, EPOLL_CTL_MOD, fd, &ev);
 }
+
+int readmsg(int fd, std::string& msg)
+{
+    int nrds = 0;
+    char readbuf[READBUFSIZ];
+
+    while(1)
+    {   
+        bzero(readbuf,sizeof(readbuf));
+        nrds = recv(fd, readbuf, READBUFSIZ, 0);
+        if(nrds == 0)
+        {
+            return 0;
+        }
+        else if(nrds == -1)
+        {
+            if(errno == EAGAIN || errno == EWOULDBLOCK)
+            {
+                break;
+            }
+            return -1;
+        }
+        else{
+            std::string tmp(readbuf);
+            msg += tmp;
+            // continue read
+        }
+    }
+    
+    return 1;
+}
