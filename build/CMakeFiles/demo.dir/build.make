@@ -81,17 +81,95 @@ CMakeFiles/demo.dir/src/demo.cpp.o.provides: CMakeFiles/demo.dir/src/demo.cpp.o.
 CMakeFiles/demo.dir/src/demo.cpp.o.provides.build: CMakeFiles/demo.dir/src/demo.cpp.o
 
 
+CMakeFiles/demo.dir/src/HTTPSession.cpp.o: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/HTTPSession.cpp.o: ../src/HTTPSession.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/demo.dir/src/HTTPSession.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/HTTPSession.cpp.o -c /home/z/INETServer/src/HTTPSession.cpp
+
+CMakeFiles/demo.dir/src/HTTPSession.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/HTTPSession.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/HTTPSession.cpp > CMakeFiles/demo.dir/src/HTTPSession.cpp.i
+
+CMakeFiles/demo.dir/src/HTTPSession.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/HTTPSession.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/HTTPSession.cpp -o CMakeFiles/demo.dir/src/HTTPSession.cpp.s
+
+CMakeFiles/demo.dir/src/HTTPSession.cpp.o.requires:
+
+.PHONY : CMakeFiles/demo.dir/src/HTTPSession.cpp.o.requires
+
+CMakeFiles/demo.dir/src/HTTPSession.cpp.o.provides: CMakeFiles/demo.dir/src/HTTPSession.cpp.o.requires
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/HTTPSession.cpp.o.provides.build
+.PHONY : CMakeFiles/demo.dir/src/HTTPSession.cpp.o.provides
+
+CMakeFiles/demo.dir/src/HTTPSession.cpp.o.provides.build: CMakeFiles/demo.dir/src/HTTPSession.cpp.o
+
+
+CMakeFiles/demo.dir/src/utils.cpp.o: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/utils.cpp.o: ../src/utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/demo.dir/src/utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/utils.cpp.o -c /home/z/INETServer/src/utils.cpp
+
+CMakeFiles/demo.dir/src/utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/utils.cpp > CMakeFiles/demo.dir/src/utils.cpp.i
+
+CMakeFiles/demo.dir/src/utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/utils.cpp -o CMakeFiles/demo.dir/src/utils.cpp.s
+
+CMakeFiles/demo.dir/src/utils.cpp.o.requires:
+
+.PHONY : CMakeFiles/demo.dir/src/utils.cpp.o.requires
+
+CMakeFiles/demo.dir/src/utils.cpp.o.provides: CMakeFiles/demo.dir/src/utils.cpp.o.requires
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/utils.cpp.o.provides.build
+.PHONY : CMakeFiles/demo.dir/src/utils.cpp.o.provides
+
+CMakeFiles/demo.dir/src/utils.cpp.o.provides.build: CMakeFiles/demo.dir/src/utils.cpp.o
+
+
+CMakeFiles/demo.dir/src/ThreadPool.cpp.o: CMakeFiles/demo.dir/flags.make
+CMakeFiles/demo.dir/src/ThreadPool.cpp.o: ../src/ThreadPool.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/demo.dir/src/ThreadPool.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/ThreadPool.cpp.o -c /home/z/INETServer/src/ThreadPool.cpp
+
+CMakeFiles/demo.dir/src/ThreadPool.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/ThreadPool.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/ThreadPool.cpp > CMakeFiles/demo.dir/src/ThreadPool.cpp.i
+
+CMakeFiles/demo.dir/src/ThreadPool.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/ThreadPool.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/ThreadPool.cpp -o CMakeFiles/demo.dir/src/ThreadPool.cpp.s
+
+CMakeFiles/demo.dir/src/ThreadPool.cpp.o.requires:
+
+.PHONY : CMakeFiles/demo.dir/src/ThreadPool.cpp.o.requires
+
+CMakeFiles/demo.dir/src/ThreadPool.cpp.o.provides: CMakeFiles/demo.dir/src/ThreadPool.cpp.o.requires
+	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/ThreadPool.cpp.o.provides.build
+.PHONY : CMakeFiles/demo.dir/src/ThreadPool.cpp.o.provides
+
+CMakeFiles/demo.dir/src/ThreadPool.cpp.o.provides.build: CMakeFiles/demo.dir/src/ThreadPool.cpp.o
+
+
 # Object files for target demo
 demo_OBJECTS = \
-"CMakeFiles/demo.dir/src/demo.cpp.o"
+"CMakeFiles/demo.dir/src/demo.cpp.o" \
+"CMakeFiles/demo.dir/src/HTTPSession.cpp.o" \
+"CMakeFiles/demo.dir/src/utils.cpp.o" \
+"CMakeFiles/demo.dir/src/ThreadPool.cpp.o"
 
 # External object files for target demo
 demo_EXTERNAL_OBJECTS =
 
 demo: CMakeFiles/demo.dir/src/demo.cpp.o
+demo: CMakeFiles/demo.dir/src/HTTPSession.cpp.o
+demo: CMakeFiles/demo.dir/src/utils.cpp.o
+demo: CMakeFiles/demo.dir/src/ThreadPool.cpp.o
 demo: CMakeFiles/demo.dir/build.make
 demo: CMakeFiles/demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -100,6 +178,9 @@ CMakeFiles/demo.dir/build: demo
 .PHONY : CMakeFiles/demo.dir/build
 
 CMakeFiles/demo.dir/requires: CMakeFiles/demo.dir/src/demo.cpp.o.requires
+CMakeFiles/demo.dir/requires: CMakeFiles/demo.dir/src/HTTPSession.cpp.o.requires
+CMakeFiles/demo.dir/requires: CMakeFiles/demo.dir/src/utils.cpp.o.requires
+CMakeFiles/demo.dir/requires: CMakeFiles/demo.dir/src/ThreadPool.cpp.o.requires
 
 .PHONY : CMakeFiles/demo.dir/requires
 
