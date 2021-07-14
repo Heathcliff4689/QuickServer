@@ -8,6 +8,9 @@ int main()
 {
     const char *ip = "127.0.0.1";
     const int port = 8080;
+
+    addsig( SIGPIPE, SIG_IGN, true);
+
     int lfd = initSocket(ip, port);
 
     epoll_event events[MAX_EVENT_NUMBER];
@@ -28,11 +31,12 @@ int main()
     setnonblocking(lfd);
 
     while (1)
-    {
+    {   
+        std::cout<<"listening..\n";
         int nfds = epoll_wait(epfd, events, MAX_EVENT_NUMBER, -1);
         if ((nfds < 0) && (errno != EINTR))
         {
-            printf("epoll failed. \n");
+            std::cout<<"epoll failed. \n";
             break;
         }
 
@@ -40,13 +44,14 @@ int main()
         {
             int sockfd = events[i].data.fd;
             if (sockfd == lfd)
-            {
+            {   
+                std::cout<<"lfd activating..\n";
                 struct sockaddr_in client;
                 socklen_t client_len = sizeof(client);
                 int connfd = accept(lfd, (struct sockaddr *)&client, &client_len);
                 if (connfd < 0)
                 {
-                    printf("accept errno is: %d\n", errno);
+                    std::cout<<"accept errno is: "<<errno<<"\n";
                     continue;
                 }
                 else
@@ -66,6 +71,7 @@ int main()
                 else if(events[i].events & EPOLLIN)
                 {
                     /* read */
+                    std::cout<<"EPOLLIN activating..\n";
                     pool.addTask(std::bind(
                         &HTTPSession::readRequest,
                         &Sess[sockfd],
@@ -77,6 +83,7 @@ int main()
                 else if(events[i].events & EPOLLOUT)
                 {
                     /* write */
+                    std::cout<<"EPOLLOUT activating..\n";
                     pool.addTask(std::bind(
                         &HTTPSession::writeResponse,
                         &Sess[sockfd],

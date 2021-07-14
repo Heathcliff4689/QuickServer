@@ -11,11 +11,15 @@
 #include <unistd.h>
 #include <string>
 #include <iostream>
+#include <signal.h>
+#include <assert.h>
 
 
 const int MAX_FD = 65536;
 const int MAX_EVENT_NUMBER = 10000;
 const int READBUFSIZ = 4096;
+
+void addsig(int sig, void( handler )(int), bool restart);
 
 int initSocket(const char* ip, int port);
 
