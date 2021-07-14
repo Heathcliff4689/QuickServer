@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include "utils.h"
 
 class HttpRequest
 {
@@ -34,14 +35,22 @@ public:
     HttpRequest request;
     HttpResponse response;
     std::string msg;
+    std::string send_msg;
+    int have_sent;
 
 public:
     HTTPSession();
     ~HTTPSession();
 
+    /* after response calling this. */
     void reset();
 
+    int readRequest(int epfd, int fd);
+    int writeResponse(int epfd, int fd);
+
+private:
     // return true while have read complete http head, otherwise false.
     bool praseHttpRequest(std::string &msg, HttpRequest &request);
     void processHttp(HttpRequest &request, HttpResponse &response);
+
 };

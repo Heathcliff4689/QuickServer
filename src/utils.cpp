@@ -28,7 +28,6 @@ int initSocket(const char *ip, int port)
         perror("listen error. ");
     }
 
-
     return lfd;
 }
 
@@ -70,33 +69,66 @@ void modFd(int epfd, int fd, int EVENT, bool oneshoot = true)
     epoll_ctl(epfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-int readmsg(int fd, std::string& msg)
+int readmsg(int epfd, int fd, std::string &msg)
 {
     int nrds = 0;
     char readbuf[READBUFSIZ];
 
-    while(1)
-    {   
-        bzero(readbuf,sizeof(readbuf));
+    while (1)
+    {
+        bzero(readbuf, sizeof(readbuf));
         nrds = recv(fd, readbuf, READBUFSIZ, 0);
-        if(nrds == 0)
+        if (nrds == 0)
         {
             return 0;
         }
-        else if(nrds == -1)
+        else if (nrds == -1)
         {
-            if(errno == EAGAIN || errno == EWOULDBLOCK)
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
+                modFd(epfd, fd, EPOLLIN, true);
                 break;
             }
+        
             return -1;
         }
-        else{
+        else
+        {
             std::string tmp(readbuf);
             msg += tmp;
             // continue read
         }
     }
-    
+
+    /* wait for next EPOLLIN */
     return 1;
+}
+
+int writemsg(int epfd, int fd, const std::string &msg, int& have_sent)
+{
+    const char *msg_r = msg.c_str();
+    int msg_len = msg.size() - have_sent;
+    int nwts = 0, nrds = 0;
+
+    while (nwts < msg_len)
+    {
+        nrds = send(fd, msg_r + have_sent + nwts, msg_len - nwts, 0);
+        if(nrds >= 0)
+        {
+            nwts += nrds;
+        }
+        else if(nrds == -1)
+        {
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
+            {
+                modFd(epfd, fd, EPOLLOUT, true);
+                have_sent = nwts;
+                return 1;
+            }
+            return -1;
+        }
+    }
+
+    have_sent = nwts;
+    return 0;
 }

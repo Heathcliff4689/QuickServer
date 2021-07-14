@@ -18,17 +18,17 @@ class ThreadPool
 public:
     typedef std::function<void()> Callback;
 
-    
-    ThreadPool(int n = 4);
-    ~ThreadPool(){};
+    ThreadPool(int n);
+    ~ThreadPool();
 
     void addWorkerThread(int num);
-
-    void workerThread();
 
     void addTask(Callback callback);
 
     void stopAll();
+
+private:
+    void workerThread();
 
 private:
     bool stop;

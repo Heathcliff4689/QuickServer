@@ -1,3 +1,5 @@
+#pragma once
+
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <arpa/inet.h>
@@ -8,6 +10,7 @@
 #include <sys/epoll.h>
 #include <unistd.h>
 #include <string>
+#include <iostream>
 
 
 const int MAX_FD = 65536;
@@ -24,4 +27,6 @@ void removeFd(int epfd, int fd);
 
 void modFd(int epfd, int fd, int EVENT, bool oneshoot);
 
-int readmsg(int fd, std::string& msg);
+int readmsg(int epfd, int fd, std::string& msg);
+
+int writemsg(int epfg, int fd, const std::string& msg, int& have_sent);

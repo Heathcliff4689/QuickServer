@@ -1,6 +1,6 @@
 #include "ThreadPool.h"
 
-ThreadPool::ThreadPool(int n = 4) : stop(false),
+ThreadPool::ThreadPool(int n) : stop(false),
                                     threadnum(0),
                                     task_queue(),
                                     worker_list(),

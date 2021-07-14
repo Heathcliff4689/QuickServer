@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 
-#include "utils.h"
 #include "HTTPSession.h"
 #include "ThreadPool.h"
 
@@ -13,7 +12,7 @@ int main()
 
     epoll_event events[MAX_EVENT_NUMBER];
     std::vector<HTTPSession> Sess(MAX_FD);
-    ThreadPool pool;
+    ThreadPool pool(4);
 
     int epfd = epoll_create(5);
     if (epfd < 0)
@@ -21,7 +20,12 @@ int main()
         perror("epoll_create error. ");
     }
 
-    addFd(epfd, lfd, false);
+    // lfd is  not ET.
+    epoll_event ev;
+    ev.data.fd = lfd;
+    ev.events = EPOLLIN | EPOLLRDHUP;
+    epoll_ctl(epfd, EPOLL_CTL_ADD, lfd, &ev);
+    setnonblocking(lfd);
 
     while (1)
     {
@@ -54,7 +58,7 @@ int main()
             {
                 /* other actions */
                 if(events[i].events & (EPOLLRDHUP | EPOLLHUP | EPOLLERR))
-                {
+                {  
                     /* errors */
                     removeFd(epfd, sockfd);
                     Sess[sockfd].reset();
@@ -62,26 +66,28 @@ int main()
                 else if(events[i].events & EPOLLIN)
                 {
                     /* read */
-                    if(readmsg(sockfd, Sess[sockfd].msg) != 1)
-                    {
-                        /* read finish or error*/
-                        removeFd(epfd, sockfd);
-                    }
-
                     pool.addTask(std::bind(
-                        &HTTPSession::praseHttpRequest, &Sess[sockfd], 
-                        Sess[sockfd].msg,
-                        Sess[sockfd].request
-                    ));
+                        &HTTPSession::readRequest,
+                        &Sess[sockfd],
+                        epfd,
+                        sockfd
+                        ));
                     
                 }
                 else if(events[i].events & EPOLLOUT)
                 {
                     /* write */
+                    pool.addTask(std::bind(
+                        &HTTPSession::writeResponse,
+                        &Sess[sockfd],
+                        epfd,
+                        sockfd
+                    ));
                 }
                 else
                 {
                     /* others */
+                    std::cout<<"undefined events in epfd. "<<std::endl;
                 }
 
             }
