@@ -15,7 +15,7 @@ int main()
 
     epoll_event events[MAX_EVENT_NUMBER];
     std::vector<HTTPSession> Sess(MAX_FD);
-    ThreadPool pool(4);
+    // ThreadPool pool(4);
 
     int epfd = epoll_create(5);
     if (epfd < 0)
@@ -30,9 +30,10 @@ int main()
     epoll_ctl(epfd, EPOLL_CTL_ADD, lfd, &ev);
     setnonblocking(lfd);
 
+    std::cout<<"listening..\n";
     while (1)
     {   
-        std::cout<<"listening..\n";
+        
         int nfds = epoll_wait(epfd, events, MAX_EVENT_NUMBER, -1);
         if ((nfds < 0) && (errno != EINTR))
         {
@@ -72,24 +73,26 @@ int main()
                 {
                     /* read */
                     std::cout<<"EPOLLIN activating..\n";
-                    pool.addTask(std::bind(
-                        &HTTPSession::readRequest,
-                        &Sess[sockfd],
-                        epfd,
-                        sockfd
-                        ));
+                    // pool.addTask(std::bind(
+                    //     &HTTPSession::readRequest,
+                    //     &Sess[sockfd],
+                    //     epfd,
+                    //     sockfd
+                    //     ));
+                    Sess[sockfd].readRequest(epfd, sockfd);
                     
                 }
                 else if(events[i].events & EPOLLOUT)
                 {
                     /* write */
                     std::cout<<"EPOLLOUT activating..\n";
-                    pool.addTask(std::bind(
-                        &HTTPSession::writeResponse,
-                        &Sess[sockfd],
-                        epfd,
-                        sockfd
-                    ));
+                    // pool.addTask(std::bind(
+                    //     &HTTPSession::writeResponse,
+                    //     &Sess[sockfd],
+                    //     epfd,
+                    //     sockfd
+                    // ));
+                    Sess[sockfd].writeResponse(epfd, sockfd);
                 }
                 else
                 {

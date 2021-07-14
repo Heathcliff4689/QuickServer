@@ -4,6 +4,7 @@
 #include <sstream>
 #include <map>
 #include "utils.h"
+#include "ThreadPool.h"
 
 class HttpRequest
 {

@@ -21,6 +21,7 @@ int initSocket(const char *ip, int port)
     if (lfd < 0)
     {
         perror("socket error. ");
+        exit(1);
     }
 
     sockaddr_in serv;
@@ -35,12 +36,14 @@ int initSocket(const char *ip, int port)
     if (ret < 0)
     {
         perror("bind error. ");
+        exit(1);
     }
 
     ret = listen(lfd, MAX_FD);
     if (ret < 0)
     {
         perror("listen error. ");
+        exit(1);
     }
 
     return lfd;

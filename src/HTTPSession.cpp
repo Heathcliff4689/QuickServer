@@ -38,24 +38,26 @@ bool HTTPSession::praseHttpRequest(std::string &msg, HttpRequest &request)
             ss >> request.method;
             ss >> request.url;
             ss >> request.version;
+            checked = pos_crlf + 2;
 
             // read remained head
             std::string key, val;
             size_t pos_colon = std::string::npos;
 
-            while (checked != headend)
+            while (checked != headend + 2)
             {
                 key = "";
                 val = "";
                 pos_colon = std::string::npos;
-                checked = pos_crlf + 2;
 
                 pos_crlf = msg.find(crlf, checked);
                 std::string line = msg.substr(checked, pos_crlf - checked);
                 pos_colon = line.find(":");
                 key = line.substr(0, pos_colon);
-                val = line.substr(pos_colon + 1);
+                val = line.substr(pos_colon + 2);
                 request.header.insert(std::make_pair(key, val));
+
+                checked = pos_crlf + 2;
             }
         }
 
@@ -91,7 +93,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
     
     /* compose send_msg */
     send_msg += response.version + " " + response.statecode + " " + response.statemsg + crlf;
-    for(auto iter: response.header)
+    for (auto iter : response.header)
     {
         send_msg += iter.first + ":" + iter.second + crlf;
     }
@@ -117,8 +119,8 @@ int HTTPSession::readRequest(int epfd, int fd)
     if(ret == 1)
     {
         /* wait for next EPOLLIN */
-        modFd(epfd, fd, EPOLLIN, true);
-        return 1;
+        // modFd(epfd, fd, EPOLLIN, true);
+        // return 1;
     }
     else if(ret = -1)
     {
@@ -140,6 +142,7 @@ int HTTPSession::readRequest(int epfd, int fd)
     }
     else 
     {   
+        std::cout<<std::this_thread::get_id()<<": readRequest.. "<<std::endl;
         /* have read complete head and body */
         processHttp(request, response);
         /* listen write events */
@@ -149,6 +152,7 @@ int HTTPSession::readRequest(int epfd, int fd)
 
 int HTTPSession::writeResponse(int epfd, int fd)
 {   
+    std::cout<<std::this_thread::get_id()<<": writeResponse.. "<<std::endl;
     int ret = writemsg(epfd, fd, send_msg, have_sent);
     if(ret == -1)
     {
