@@ -42,6 +42,10 @@ A C++ High Performance Network Server (v0.3).
 	* Memory 11.7 GiB
 	* OS Ubuntu 18.04 LTS
 	* Vmware Workstation 7
+* 测试命令 0  
+	* 服务器端	 
+
+			./QuickServer 8080 4 
 * 测试命令 1
 	* 读取磁盘文件
 
