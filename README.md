@@ -14,22 +14,16 @@ A C++ High Network Server (v0.3).
  * 成功连接的 Socket 采用边缘触发（ET）模式和非阻塞模式
 
  * 关闭连接的情形
-   * 通常情况下，由客户端主动发起FIN关闭连接
-   * 客户端发送FIN关闭连接后，服务器把数据发完才close，而不是直接暴力close
-   * 如果连接出错，则服务器可以直接close
+   * 通常情况下，由服务器主动发起FIN关闭连接
+   * 客户端发送FIN关闭连接后，服务器等待剩余数据发送完成再close
+   * 如果连接出错，服务器直接close
 
-## Run
-
- '''  
-
-$ ./build/QuickServer [port] [thread_num]
-    
- '''
-
-'''
-$ ./build/QuickServer [port] [thread_num]
-'''
-  * 例：$ ./build/QuickServer 8080 4 
+## Run  
+	$ cd build/
+	$ ./QuickServer [port] [thread_num]
+	  
+	  
+  * 例：$ ./QuickServer 8080 4 
   
   * 表示开启8080端口，采用4工作线程
   
@@ -38,7 +32,26 @@ $ ./build/QuickServer [port] [thread_num]
   * IP 默认 127.0.0.1
 
 ## Test
+* 测试工具 webbench
+* 测试流程
+	* 模拟1000条客户端连接，测试 30 s
+	* 测试读取磁盘数据
+	* 测试仅读取内存数据
+* 测试环境
+	* Processor Intel Xeon(R) CPU E5-2620 v3 @ 2.40Ghz * 8
+	* Memory 11.7 GiB
+	* OS Ubuntu 18.04 LTS
+	* Vmware Workstation 7
+* 测试命令 1
+	* 读取磁盘文件
+
+			webbench -c 1000 -t 30 http://127.0.0.1:8080/index.html
+
 ![IO-affected](https://github.com/Heathcliff4689/QuickServer/blob/v0.3/test/IO_imfe.png)
+* 测试命令 2
+	* 不读取磁盘文件
+
+			webbench -c 1000 -t 30 http://127.0.0.1:8080/
 
 ![Non-IO impacted](https://github.com/Heathcliff4689/QuickServer/blob/v0.3/test/NON-IO_imfe.png)
 
