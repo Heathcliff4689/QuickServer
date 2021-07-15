@@ -71,11 +71,11 @@ bool HTTPSession::praseHttpRequest(std::string &msg, HttpRequest &request)
 
 void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
 {
-    if(request.method == "GET" || request.method == "POST")
+    if (request.method == "GET" || request.method == "POST")
     {
         response.version = request.version;
         response.statecode = "200";
-        response.body = "OK";
+        response.statemsg = "OK";
 
         /* deal with response head */
         std::string key = "Content-type";
@@ -83,14 +83,48 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
         response.header.insert(std::make_pair(key, val));
 
         /*deal with body*/
-        response.body = "RESPONSE BODY. ";
+        // response.body = msg;
+        std::string responsebody;
+        responsebody += "<html><title>Server Work</title>";
+        responsebody += "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
+        responsebody += "<style>body{background-color:#f;font-size:14px;}h1{font-size:60px;color:#eeetext-align:center;padding-top:30px;font-weight:normal;}</style>";
+        responsebody += "<body bgcolor=\"ffffff\"><h3>";
+        responsebody += response.statecode + " " + response.statemsg;
+        responsebody += "</h3>\nURL: " + request.url;
+        responsebody += "</h1><hr>Request: </body></html>";
+        responsebody += msg;
+        responsebody += "<hr><em> ZhangJie's QuickServer</em>\n</body></html>";
+
+        response.body = responsebody;
     }
     else
     {
         /* Not implement methods. */
+        response.version = request.version;
+        response.statecode = "501";
+        response.body = "Not Implemented";
+
+        /* deal with response head */
+        std::string key = "Content-type";
+        std::string val = "text/html; charset=GB2312";
+        response.header.insert(std::make_pair(key, val));
+
+        /*deal with body*/
+
+        std::string responsebody;
+        responsebody += "<html><title>Error</title>";
+        responsebody += "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
+        responsebody += "<style>body{background-color:#f;font-size:14px;}h1{font-size:60px;color:#eeetext-align:center;padding-top:30px;font-weight:normal;}</style>";
+        responsebody += "<body bgcolor=\"ffffff\"><h3>";
+        responsebody += response.statecode + " " + response.statemsg;
+        responsebody += "</h3>\nURL: " + request.url;
+        responsebody += "</h1><hr>Request: </body></html>";
+        responsebody += msg;
+        responsebody += "<hr><em> ZhangJie's QuickServer</em>\n</body></html>";
+
+        response.body = responsebody;
     }
 
-    
     /* compose send_msg */
     send_msg += response.version + " " + response.statecode + " " + response.statemsg + crlf;
     for (auto iter : response.header)
@@ -99,7 +133,6 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
     }
     send_msg += dcrlf;
     send_msg += response.body;
-
 }
 
 void HTTPSession::reset()
@@ -116,33 +149,33 @@ int HTTPSession::readRequest(int epfd, int fd)
 {
     int ret = readmsg(epfd, fd, msg);
 
-    if(ret == 1)
+    if (ret == 1)
     {
         /* wait for next EPOLLIN */
         // modFd(epfd, fd, EPOLLIN, true);
         // return 1;
     }
-    else if(ret = -1)
+    else if (ret = -1)
     {
         perror("readmsg error. ");
         removeFd(epfd, fd);
         reset();
         return -1;
     }
-    
+
     bool prased = praseHttpRequest(msg, request);
-    
-    if(!prased)
-    {   
+
+    if (!prased)
+    {
         /* here should send error msg to client. */
         perror("http request non-completed. ");
         removeFd(epfd, fd);
         reset();
         return -1;
     }
-    else 
-    {   
-        std::cout<<std::this_thread::get_id()<<": readRequest.. "<<std::endl;
+    else
+    {
+        // std::cout << std::this_thread::get_id() << ": readRequest.. " << std::endl;
         /* have read complete head and body */
         processHttp(request, response);
         /* listen write events */
@@ -151,10 +184,10 @@ int HTTPSession::readRequest(int epfd, int fd)
 }
 
 int HTTPSession::writeResponse(int epfd, int fd)
-{   
-    std::cout<<std::this_thread::get_id()<<": writeResponse.. "<<std::endl;
+{
+    // std::cout << std::this_thread::get_id() << ": writeResponse.. " << std::endl;
     int ret = writemsg(epfd, fd, send_msg, have_sent);
-    if(ret == -1)
+    if (ret == -1)
     {
         /* close connection. */
         perror("writemsg error. ");
@@ -162,16 +195,16 @@ int HTTPSession::writeResponse(int epfd, int fd)
         reset();
         return -1;
     }
-    else if(ret == 1)
+    else if (ret == 1)
     {
         modFd(epfd, fd, EPOLLOUT, true);
         return 1;
     }
     else
-    {   
-        if(have_sent != send_msg.size())
+    {
+        if (have_sent != send_msg.size())
         {
-            std::cout<<"writeResponse done, but send_msg len error. "<<std::endl;
+            std::cout << "writeResponse done, but send_msg len error. " << std::endl;
         }
 
         // modFd(epfd, fd, EPOLLIN, true);
@@ -180,7 +213,4 @@ int HTTPSession::writeResponse(int epfd, int fd)
 
         return 0;
     }
-
-
-
 }

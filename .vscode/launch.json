@@ -8,7 +8,7 @@
             "name": "g++ - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/z/INETServer/build/demo",
+            "program": "/home/z/QuickServer/build/demo",
             "args": [],
             "stopAtEntry": false,
             "cwd": "/home/z/INETServer/",

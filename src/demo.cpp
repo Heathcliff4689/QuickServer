@@ -15,7 +15,7 @@ int main()
 
     epoll_event events[MAX_EVENT_NUMBER];
     std::vector<HTTPSession> Sess(MAX_FD);
-    // ThreadPool pool(4);
+    ThreadPool pool(4);
 
     int epfd = epoll_create(5);
     if (epfd < 0)
@@ -46,7 +46,7 @@ int main()
             int sockfd = events[i].data.fd;
             if (sockfd == lfd)
             {   
-                std::cout<<"lfd activating..\n";
+                // std::cout<<"lfd activating..\n";
                 struct sockaddr_in client;
                 socklen_t client_len = sizeof(client);
                 int connfd = accept(lfd, (struct sockaddr *)&client, &client_len);
@@ -72,27 +72,27 @@ int main()
                 else if(events[i].events & EPOLLIN)
                 {
                     /* read */
-                    std::cout<<"EPOLLIN activating..\n";
-                    // pool.addTask(std::bind(
-                    //     &HTTPSession::readRequest,
-                    //     &Sess[sockfd],
-                    //     epfd,
-                    //     sockfd
-                    //     ));
-                    Sess[sockfd].readRequest(epfd, sockfd);
+                    // std::cout<<"EPOLLIN activating..\n";
+                    pool.addTask(std::bind(
+                        &HTTPSession::readRequest,
+                        &Sess[sockfd],
+                        epfd,
+                        sockfd
+                        ));
+                    // Sess[sockfd].readRequest(epfd, sockfd);
                     
                 }
                 else if(events[i].events & EPOLLOUT)
                 {
                     /* write */
-                    std::cout<<"EPOLLOUT activating..\n";
-                    // pool.addTask(std::bind(
-                    //     &HTTPSession::writeResponse,
-                    //     &Sess[sockfd],
-                    //     epfd,
-                    //     sockfd
-                    // ));
-                    Sess[sockfd].writeResponse(epfd, sockfd);
+                    // std::cout<<"EPOLLOUT activating..\n";
+                    pool.addTask(std::bind(
+                        &HTTPSession::writeResponse,
+                        &Sess[sockfd],
+                        epfd,
+                        sockfd
+                    ));
+                    // Sess[sockfd].writeResponse(epfd, sockfd);
                 }
                 else
                 {
