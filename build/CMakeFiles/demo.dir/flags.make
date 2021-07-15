@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11 -pthread -g
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/z/INETServer/./include 
+CXX_INCLUDES = -I/home/z/QuickServer/QuickServer/./include 
 

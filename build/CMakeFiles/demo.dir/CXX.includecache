@@ -62,25 +62,25 @@ signal.h
 assert.h
 -
 
-/home/z/INETServer/src/HTTPSession.cpp
+/home/z/QuickServer/QuickServer/src/HTTPSession.cpp
 HTTPSession.h
-/home/z/INETServer/src/HTTPSession.h
+/home/z/QuickServer/QuickServer/src/HTTPSession.h
 
-/home/z/INETServer/src/ThreadPool.cpp
+/home/z/QuickServer/QuickServer/src/ThreadPool.cpp
 ThreadPool.h
-/home/z/INETServer/src/ThreadPool.h
+/home/z/QuickServer/QuickServer/src/ThreadPool.h
 
-/home/z/INETServer/src/demo.cpp
+/home/z/QuickServer/QuickServer/src/demo.cpp
 iostream
 -
 vector
 -
 HTTPSession.h
-/home/z/INETServer/src/HTTPSession.h
+/home/z/QuickServer/QuickServer/src/HTTPSession.h
 ThreadPool.h
-/home/z/INETServer/src/ThreadPool.h
+/home/z/QuickServer/QuickServer/src/ThreadPool.h
 
-/home/z/INETServer/src/utils.cpp
+/home/z/QuickServer/QuickServer/src/utils.cpp
 utils.h
-/home/z/INETServer/src/utils.h
+/home/z/QuickServer/QuickServer/src/utils.h
 

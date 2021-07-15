@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/z/INETServer
+CMAKE_SOURCE_DIR = /home/z/QuickServer/QuickServer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/z/INETServer/build
+CMAKE_BINARY_DIR = /home/z/QuickServer/QuickServer/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/demo.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/demo.dir/flags.make
 
 CMakeFiles/demo.dir/src/demo.cpp.o: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/demo.cpp.o: ../src/demo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/demo.dir/src/demo.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/demo.cpp.o -c /home/z/INETServer/src/demo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/demo.dir/src/demo.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/demo.cpp.o -c /home/z/QuickServer/QuickServer/src/demo.cpp
 
 CMakeFiles/demo.dir/src/demo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/demo.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/demo.cpp > CMakeFiles/demo.dir/src/demo.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/QuickServer/QuickServer/src/demo.cpp > CMakeFiles/demo.dir/src/demo.cpp.i
 
 CMakeFiles/demo.dir/src/demo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/demo.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/demo.cpp -o CMakeFiles/demo.dir/src/demo.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/QuickServer/QuickServer/src/demo.cpp -o CMakeFiles/demo.dir/src/demo.cpp.s
 
 CMakeFiles/demo.dir/src/demo.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/demo.dir/src/demo.cpp.o.provides.build: CMakeFiles/demo.dir/src/demo.
 
 CMakeFiles/demo.dir/src/HTTPSession.cpp.o: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/HTTPSession.cpp.o: ../src/HTTPSession.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/demo.dir/src/HTTPSession.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/HTTPSession.cpp.o -c /home/z/INETServer/src/HTTPSession.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/demo.dir/src/HTTPSession.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/HTTPSession.cpp.o -c /home/z/QuickServer/QuickServer/src/HTTPSession.cpp
 
 CMakeFiles/demo.dir/src/HTTPSession.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/HTTPSession.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/HTTPSession.cpp > CMakeFiles/demo.dir/src/HTTPSession.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/QuickServer/QuickServer/src/HTTPSession.cpp > CMakeFiles/demo.dir/src/HTTPSession.cpp.i
 
 CMakeFiles/demo.dir/src/HTTPSession.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/HTTPSession.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/HTTPSession.cpp -o CMakeFiles/demo.dir/src/HTTPSession.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/QuickServer/QuickServer/src/HTTPSession.cpp -o CMakeFiles/demo.dir/src/HTTPSession.cpp.s
 
 CMakeFiles/demo.dir/src/HTTPSession.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/demo.dir/src/HTTPSession.cpp.o.provides.build: CMakeFiles/demo.dir/sr
 
 CMakeFiles/demo.dir/src/utils.cpp.o: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/utils.cpp.o: ../src/utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/demo.dir/src/utils.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/utils.cpp.o -c /home/z/INETServer/src/utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/demo.dir/src/utils.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/utils.cpp.o -c /home/z/QuickServer/QuickServer/src/utils.cpp
 
 CMakeFiles/demo.dir/src/utils.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/utils.cpp > CMakeFiles/demo.dir/src/utils.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/QuickServer/QuickServer/src/utils.cpp > CMakeFiles/demo.dir/src/utils.cpp.i
 
 CMakeFiles/demo.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/utils.cpp -o CMakeFiles/demo.dir/src/utils.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/QuickServer/QuickServer/src/utils.cpp -o CMakeFiles/demo.dir/src/utils.cpp.s
 
 CMakeFiles/demo.dir/src/utils.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/demo.dir/src/utils.cpp.o.provides.build: CMakeFiles/demo.dir/src/util
 
 CMakeFiles/demo.dir/src/ThreadPool.cpp.o: CMakeFiles/demo.dir/flags.make
 CMakeFiles/demo.dir/src/ThreadPool.cpp.o: ../src/ThreadPool.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/demo.dir/src/ThreadPool.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/ThreadPool.cpp.o -c /home/z/INETServer/src/ThreadPool.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/demo.dir/src/ThreadPool.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/demo.dir/src/ThreadPool.cpp.o -c /home/z/QuickServer/QuickServer/src/ThreadPool.cpp
 
 CMakeFiles/demo.dir/src/ThreadPool.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/demo.dir/src/ThreadPool.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/INETServer/src/ThreadPool.cpp > CMakeFiles/demo.dir/src/ThreadPool.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/z/QuickServer/QuickServer/src/ThreadPool.cpp > CMakeFiles/demo.dir/src/ThreadPool.cpp.i
 
 CMakeFiles/demo.dir/src/ThreadPool.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/demo.dir/src/ThreadPool.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/INETServer/src/ThreadPool.cpp -o CMakeFiles/demo.dir/src/ThreadPool.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/z/QuickServer/QuickServer/src/ThreadPool.cpp -o CMakeFiles/demo.dir/src/ThreadPool.cpp.s
 
 CMakeFiles/demo.dir/src/ThreadPool.cpp.o.requires:
 
@@ -169,7 +169,7 @@ demo: CMakeFiles/demo.dir/src/utils.cpp.o
 demo: CMakeFiles/demo.dir/src/ThreadPool.cpp.o
 demo: CMakeFiles/demo.dir/build.make
 demo: CMakeFiles/demo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/z/INETServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable demo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable demo"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/demo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -189,6 +189,6 @@ CMakeFiles/demo.dir/clean:
 .PHONY : CMakeFiles/demo.dir/clean
 
 CMakeFiles/demo.dir/depend:
-	cd /home/z/INETServer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/z/INETServer /home/z/INETServer /home/z/INETServer/build /home/z/INETServer/build /home/z/INETServer/build/CMakeFiles/demo.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/z/QuickServer/QuickServer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/z/QuickServer/QuickServer /home/z/QuickServer/QuickServer /home/z/QuickServer/QuickServer/build /home/z/QuickServer/QuickServer/build /home/z/QuickServer/QuickServer/build/CMakeFiles/demo.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/demo.dir/depend
 
