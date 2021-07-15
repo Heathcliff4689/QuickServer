@@ -7,7 +7,7 @@ A C++ High Network Server (v0.3).
  * 应用层实现了简单的HTTP服务器HttpSession，服务器实现了HTTP的解析和Get方法请求，目前支持静态资源访问
 
 ## Tech
- * 多线程采用 C++ 11 Thread 库实现
+ * 多线程及线程同步采用 C++ 11 Thread 库实现
 
  * v0.3 主线程监听 I / O，并将任务插入工作队列；利用线程池实现多工作线程, one loop per thread 执行读写、处理请求等操作。
 
