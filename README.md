@@ -40,7 +40,7 @@ $ ./build/QuickServer [port] [thread_num]
 ## Test
 ![IO-affected](https://github.com/Heathcliff4689/QuickServer/blob/v0.3/test/IO_imfe.png)
 
-![Non-IO impacted](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/)
+![Non-IO impacted](https://github.com/Heathcliff4689/QuickServer/blob/v0.3/test/NON-IO_imfe.png)
 
 
 
