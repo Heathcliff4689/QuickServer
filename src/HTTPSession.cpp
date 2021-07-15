@@ -1,5 +1,7 @@
 #include "HTTPSession.h"
 
+#include <exception>
+
 HTTPSession::HTTPSession()
     : prase_done(false),
       crlf("\r\n"),
@@ -79,22 +81,41 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
 
         /* deal with response head */
         std::string key = "Content-type";
-        std::string val = "text/html; charset=GB2312";
+        std::string val = "text/html; charset=utf-8";
         response.header.insert(std::make_pair(key, val));
 
         /*deal with body*/
         // response.body = msg;
         std::string responsebody;
-        responsebody += "<html><title>Server Work</title>";
-        responsebody += "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
-        responsebody += "<style>body{background-color:#f;font-size:14px;}h1{font-size:60px;color:#eeetext-align:center;padding-top:30px;font-weight:normal;}</style>";
-        responsebody += "<body bgcolor=\"ffffff\"><h3>";
-        responsebody += response.statecode + " " + response.statemsg;
-        responsebody += "</h3>\nURL: " + request.url;
-        responsebody += "</h1><hr>Request: </body></html>";
-        responsebody += msg;
-        responsebody += "<hr><em> ZhangJie's QuickServer</em>\n</body></html>";
-
+        if (request.url == "/index.html")
+        {
+            int hfd = open("../test/index.html", O_RDWR);
+            char buf[READBUFSIZ];
+            bzero(buf, sizeof(buf));
+            int ret = read(hfd, buf, READBUFSIZ);
+            close(hfd);
+            
+            if (ret == -1)
+            {
+                perror("read index.html error. ");
+            }
+            else
+            {
+                responsebody += std::move(std::string(buf));
+            }
+        }
+        else
+        {
+            responsebody += "<html><title>Server Work</title>";
+            responsebody += "<head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head>";
+            responsebody += "<style>body{background-color:#f;font-size:14px;}h1{font-size:60px;color:#eeetext-align:center;padding-top:30px;font-weight:normal;}</style>";
+            responsebody += "<body bgcolor=\"ffffff\"><h3>";
+            responsebody += response.statecode + " " + response.statemsg;
+            responsebody += "</h3>\nURL: " + request.url;
+            responsebody += "</h1><hr>Request: </body></html>";
+            responsebody += msg;
+            responsebody += "<hr><em> ZhangJie's QuickServer</em>\n</body></html>";
+        }
         response.body = responsebody;
     }
     else
@@ -106,7 +127,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
 
         /* deal with response head */
         std::string key = "Content-type";
-        std::string val = "text/html; charset=GB2312";
+        std::string val = "text/html; charset=utf-8";
         response.header.insert(std::make_pair(key, val));
 
         /*deal with body*/
@@ -157,13 +178,22 @@ int HTTPSession::readRequest(int epfd, int fd)
     }
     else if (ret = -1)
     {
-        perror("readmsg error. ");
+        // perror("readmsg error. ");
         removeFd(epfd, fd);
         reset();
         return -1;
     }
 
-    bool prased = praseHttpRequest(msg, request);
+    bool prased = false;
+
+    try
+    {
+        prased = praseHttpRequest(msg, request);
+    }
+    catch (std::exception &e)
+    {
+        std::cout<<e.what()<<std::endl;
+    }
 
     if (!prased)
     {
@@ -204,7 +234,7 @@ int HTTPSession::writeResponse(int epfd, int fd)
     {
         if (have_sent != send_msg.size())
         {
-            std::cout << "writeResponse done, but send_msg len error. " << std::endl;
+            // std::cout << "writeResponse done, but send_msg len error. " << std::endl;
         }
 
         // modFd(epfd, fd, EPOLLIN, true);

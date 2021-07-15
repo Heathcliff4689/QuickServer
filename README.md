@@ -7,7 +7,7 @@ A C++ High Network Server (v0.3).
  * 应用层实现了简单的HTTP服务器HttpSession，服务器实现了HTTP的解析和Get方法请求，目前支持静态资源访问
 
 ## Tech
- * 多线程采用 C++ Thread 库实现
+ * 多线程采用 C++ 11 Thread 库实现
 
  * v0.3 主线程监听 I / O，并将任务插入工作队列；利用线程池实现多工作线程, one loop per thread 执行读写、处理请求等操作。
 
@@ -19,15 +19,29 @@ A C++ High Network Server (v0.3).
    * 如果连接出错，则服务器可以直接close
 
 ## Run
-	$ ./build/QuickServer [port] [thread_num]
 
-  * 例：$ ./build/QuickServer 8080 4
+ '''  
+
+$ ./build/QuickServer [port] [thread_num]
+    
+ '''
+
+'''
+$ ./build/QuickServer [port] [thread_num]
+'''
+  * 例：$ ./build/QuickServer 8080 4 
   
   * 表示开启8080端口，采用4工作线程
   
   * 线程数限制为 2-16，不建议启动过多线程
   
   * IP 默认 127.0.0.1
+
+## Test
+![asdas](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/IO_infe.png)
+
+![asdas](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/)
+
 
 
 	

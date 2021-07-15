@@ -65,6 +65,8 @@ assert.h
 /home/z/QuickServer/QuickServer/src/HTTPSession.cpp
 HTTPSession.h
 /home/z/QuickServer/QuickServer/src/HTTPSession.h
+exception
+-
 
 /home/z/QuickServer/QuickServer/src/ThreadPool.cpp
 ThreadPool.h
