@@ -1,3 +1,3 @@
 ### QuickServer
 
-A latestly branch is in v0.3.
+A latestly version is in branch v0.3.
