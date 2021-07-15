@@ -19,9 +19,9 @@ A C++ High Network Server (v0.3).
    * 如果连接出错，则服务器可以直接close
 
 ## Run
-	$ ./QuickServer [port] [thread_num]
-	
-  * 例：$ ./QuickServer 8080 4
+	$ ./build/QuickServer [port] [thread_num]
+
+  * 例：$ ./build/QuickServer 8080 4
   
   * 表示开启8080端口，采用4工作线程
   
