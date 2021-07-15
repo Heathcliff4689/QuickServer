@@ -1,5 +1,5 @@
 # QuickServer
-A C++ High Network Server (v0.3).
+A C++ High Performance Network Server (v0.3).
 
 ## Introduce
  * 基于 epoll 的 I / O 复用机制， 采取 Reactor 事件处理模式，实现高性能服务器程序框架
