@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 {   
     if(argc < 3)
     {
-        std::cout<<"Input the port & thread number you need, PLZ. ";
+        std::cout<<"Input the port & thread number you need, PLZ. \n";
         return 1;
     }
 
