@@ -11,7 +11,7 @@ A C++ High Performance Network Server (v0.3).
 
  * v0.3 主线程监听 I / O，并将任务插入工作队列；利用线程池实现多工作线程, one loop per thread 执行读写、处理请求等操作。
 
- * 成功连接的 Socket 采用边缘触发（ET）模式和非阻塞模式
+ * 成功连接的 Socket 采用边缘触发（ET）和非阻塞模式，并设置 EPOLLONESHOOT 标志位
 
  * 关闭连接的情形
    * 通常情况下，由服务器主动发起FIN关闭连接
