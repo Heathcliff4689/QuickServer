@@ -4,10 +4,16 @@
 #include "HTTPSession.h"
 #include "ThreadPool.h"
 
-int main()
-{
+int main(int argc, char* argv[])
+{   
+    if(argc < 3)
+    {
+        std::cout<<"Input the port & thread number you need, PLZ. ";
+        return 1;
+    }
+
     const char *ip = "127.0.0.1";
-    const int port = 8080;
+    const int port = std::stoi(argv[1]);
 
     addsig( SIGPIPE, SIG_IGN, true);
 
@@ -15,7 +21,18 @@ int main()
 
     epoll_event events[MAX_EVENT_NUMBER];
     std::vector<HTTPSession> Sess(MAX_FD);
-    ThreadPool pool(4);
+    
+    int threads = std::stoi(argv[2]);
+    if(threads <1)
+    {
+        threads = 2;
+    }
+    else if(threads > 16)
+    {
+        threads = 16;
+    } 
+    
+    ThreadPool pool(threads);
 
     int epfd = epoll_create(5);
     if (epfd < 0)

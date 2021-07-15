@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named demo
+# Target rules for targets named QuickServer
 
 # Build rule for target.
-demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 demo
-.PHONY : demo
+QuickServer: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 QuickServer
+.PHONY : QuickServer
 
 # fast build rule for target.
-demo/fast:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
-.PHONY : demo/fast
+QuickServer/fast:
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/build
+.PHONY : QuickServer/fast
 
 src/HTTPSession.o: src/HTTPSession.cpp.o
 
@@ -129,7 +129,7 @@ src/HTTPSession.o: src/HTTPSession.cpp.o
 
 # target to build an object file
 src/HTTPSession.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/HTTPSession.cpp.o
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o
 .PHONY : src/HTTPSession.cpp.o
 
 src/HTTPSession.i: src/HTTPSession.cpp.i
@@ -138,7 +138,7 @@ src/HTTPSession.i: src/HTTPSession.cpp.i
 
 # target to preprocess a source file
 src/HTTPSession.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/HTTPSession.cpp.i
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.i
 .PHONY : src/HTTPSession.cpp.i
 
 src/HTTPSession.s: src/HTTPSession.cpp.s
@@ -147,7 +147,7 @@ src/HTTPSession.s: src/HTTPSession.cpp.s
 
 # target to generate assembly for a file
 src/HTTPSession.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/HTTPSession.cpp.s
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.s
 .PHONY : src/HTTPSession.cpp.s
 
 src/ThreadPool.o: src/ThreadPool.cpp.o
@@ -156,7 +156,7 @@ src/ThreadPool.o: src/ThreadPool.cpp.o
 
 # target to build an object file
 src/ThreadPool.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/ThreadPool.cpp.o
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o
 .PHONY : src/ThreadPool.cpp.o
 
 src/ThreadPool.i: src/ThreadPool.cpp.i
@@ -165,7 +165,7 @@ src/ThreadPool.i: src/ThreadPool.cpp.i
 
 # target to preprocess a source file
 src/ThreadPool.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/ThreadPool.cpp.i
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.i
 .PHONY : src/ThreadPool.cpp.i
 
 src/ThreadPool.s: src/ThreadPool.cpp.s
@@ -174,7 +174,7 @@ src/ThreadPool.s: src/ThreadPool.cpp.s
 
 # target to generate assembly for a file
 src/ThreadPool.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/ThreadPool.cpp.s
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.s
 .PHONY : src/ThreadPool.cpp.s
 
 src/demo.o: src/demo.cpp.o
@@ -183,7 +183,7 @@ src/demo.o: src/demo.cpp.o
 
 # target to build an object file
 src/demo.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.o
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/demo.cpp.o
 .PHONY : src/demo.cpp.o
 
 src/demo.i: src/demo.cpp.i
@@ -192,7 +192,7 @@ src/demo.i: src/demo.cpp.i
 
 # target to preprocess a source file
 src/demo.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.i
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/demo.cpp.i
 .PHONY : src/demo.cpp.i
 
 src/demo.s: src/demo.cpp.s
@@ -201,7 +201,7 @@ src/demo.s: src/demo.cpp.s
 
 # target to generate assembly for a file
 src/demo.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/demo.cpp.s
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/demo.cpp.s
 .PHONY : src/demo.cpp.s
 
 src/utils.o: src/utils.cpp.o
@@ -210,7 +210,7 @@ src/utils.o: src/utils.cpp.o
 
 # target to build an object file
 src/utils.cpp.o:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/utils.cpp.o
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/utils.cpp.o
 .PHONY : src/utils.cpp.o
 
 src/utils.i: src/utils.cpp.i
@@ -219,7 +219,7 @@ src/utils.i: src/utils.cpp.i
 
 # target to preprocess a source file
 src/utils.cpp.i:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/utils.cpp.i
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/utils.cpp.i
 .PHONY : src/utils.cpp.i
 
 src/utils.s: src/utils.cpp.s
@@ -228,7 +228,7 @@ src/utils.s: src/utils.cpp.s
 
 # target to generate assembly for a file
 src/utils.cpp.s:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/src/utils.cpp.s
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/utils.cpp.s
 .PHONY : src/utils.cpp.s
 
 # Help Target
@@ -238,7 +238,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... demo"
+	@echo "... QuickServer"
 	@echo "... edit_cache"
 	@echo "... src/HTTPSession.o"
 	@echo "... src/HTTPSession.i"

@@ -1,3 +1,3 @@
 /home/z/QuickServer/QuickServer/build/CMakeFiles/rebuild_cache.dir
-/home/z/QuickServer/QuickServer/build/CMakeFiles/demo.dir
+/home/z/QuickServer/QuickServer/build/CMakeFiles/QuickServer.dir
 /home/z/QuickServer/QuickServer/build/CMakeFiles/edit_cache.dir

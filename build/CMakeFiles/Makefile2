@@ -60,39 +60,39 @@ CMAKE_SOURCE_DIR = /home/z/QuickServer/QuickServer
 CMAKE_BINARY_DIR = /home/z/QuickServer/QuickServer/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/demo.dir
+# Target rules for target CMakeFiles/QuickServer.dir
 
 # All Build rule for target.
-CMakeFiles/demo.dir/all:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/depend
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target demo"
-.PHONY : CMakeFiles/demo.dir/all
+CMakeFiles/QuickServer.dir/all:
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/depend
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/z/QuickServer/QuickServer/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target QuickServer"
+.PHONY : CMakeFiles/QuickServer.dir/all
 
 # Include target in all.
-all: CMakeFiles/demo.dir/all
+all: CMakeFiles/QuickServer.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/demo.dir/rule: cmake_check_build_system
+CMakeFiles/QuickServer.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/z/QuickServer/QuickServer/build/CMakeFiles 5
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/demo.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/QuickServer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/z/QuickServer/QuickServer/build/CMakeFiles 0
-.PHONY : CMakeFiles/demo.dir/rule
+.PHONY : CMakeFiles/QuickServer.dir/rule
 
 # Convenience name for target.
-demo: CMakeFiles/demo.dir/rule
+QuickServer: CMakeFiles/QuickServer.dir/rule
 
-.PHONY : demo
-
-# clean rule for target.
-CMakeFiles/demo.dir/clean:
-	$(MAKE) -f CMakeFiles/demo.dir/build.make CMakeFiles/demo.dir/clean
-.PHONY : CMakeFiles/demo.dir/clean
+.PHONY : QuickServer
 
 # clean rule for target.
-clean: CMakeFiles/demo.dir/clean
+CMakeFiles/QuickServer.dir/clean:
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/clean
+.PHONY : CMakeFiles/QuickServer.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/QuickServer.dir/clean
 
 .PHONY : clean
 
