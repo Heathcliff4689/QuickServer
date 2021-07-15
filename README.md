@@ -38,9 +38,9 @@ $ ./build/QuickServer [port] [thread_num]
   * IP 默认 127.0.0.1
 
 ## Test
-![asdas](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/IO_infe.png)
+![IO-affected](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/IO_infe.png)
 
-![asdas](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/)
+![Non-IO impacted](https://github.com/Heathcliff4689/QuickServer/tree/v0.3/test/)
 
 
 
