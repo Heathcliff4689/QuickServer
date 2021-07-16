@@ -3,7 +3,7 @@ A C++ High Performance Network Server (v0.3).
 
 ## Introduce
  * 基于 epoll 的 I / O 复用机制， 采取 Reactor 事件处理模式，实现高性能服务器程序框架
- * 并发编程为半同步 / 半异步模式，异步线程监听到客户请求后通过条件变量随机唤醒睡眠的工作线程
+ * 多线程为半同步 / 半异步模式，异步线程监听到客户请求后通过条件变量随机唤醒睡眠的工作线程
  * 应用层实现了简单的HTTP服务器HttpSession，服务器实现了HTTP的解析和Get方法请求，目前支持静态资源访问
 
 ## Tech
