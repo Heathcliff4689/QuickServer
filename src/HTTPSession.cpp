@@ -8,7 +8,7 @@ HTTPSession::HTTPSession()
       dcrlf("\r\n\r\n"),
       request(),
       response(),
-      msg(),
+      recv_msg(),
       send_msg(),
       have_sent(0)
 {
@@ -18,9 +18,9 @@ HTTPSession::~HTTPSession()
 {
 }
 
-bool HTTPSession::praseHttpRequest(std::string &msg, HttpRequest &request)
+bool HTTPSession::praseHttpRequest(std::string &recv_msg, HttpRequest &request)
 {
-    int headend = msg.find(dcrlf);
+    int headend = recv_msg.find(dcrlf);
     if (headend == std::string::npos)
     {
         /* not found complete http head */
@@ -34,8 +34,8 @@ bool HTTPSession::praseHttpRequest(std::string &msg, HttpRequest &request)
         {
             /* found http head */
             // read first line
-            int pos_crlf = msg.find(crlf, checked);
-            std::string first_line = msg.substr(checked, pos_crlf - checked);
+            int pos_crlf = recv_msg.find(crlf, checked);
+            std::string first_line = recv_msg.substr(checked, pos_crlf - checked);
             std::stringstream ss(first_line);
             ss >> request.method;
             ss >> request.url;
@@ -52,8 +52,8 @@ bool HTTPSession::praseHttpRequest(std::string &msg, HttpRequest &request)
                 val = "";
                 pos_colon = std::string::npos;
 
-                pos_crlf = msg.find(crlf, checked);
-                std::string line = msg.substr(checked, pos_crlf - checked);
+                pos_crlf = recv_msg.find(crlf, checked);
+                std::string line = recv_msg.substr(checked, pos_crlf - checked);
                 pos_colon = line.find(":");
                 key = line.substr(0, pos_colon);
                 val = line.substr(pos_colon + 2);
@@ -64,8 +64,8 @@ bool HTTPSession::praseHttpRequest(std::string &msg, HttpRequest &request)
         }
 
         /* have read http head */
-        checked = msg.find(dcrlf) + 4;
-        std::string body = msg.substr(checked);
+        checked = recv_msg.find(dcrlf) + 4;
+        std::string body = recv_msg.substr(checked);
         prase_done = true;
         return prase_done;
     }
@@ -85,7 +85,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
         response.header.insert(std::make_pair(key, val));
 
         /*deal with body*/
-        // response.body = msg;
+        // response.body = recv_msg;
         std::string responsebody;
         if (request.url == "/index.html")
         {
@@ -113,7 +113,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
             responsebody += response.statecode + " " + response.statemsg;
             responsebody += "</h3>\nURL: " + request.url;
             responsebody += "</h1><hr>Request: </body></html>";
-            responsebody += msg;
+            responsebody += recv_msg;
             responsebody += "<hr><em> ZhangJie's QuickServer</em>\n</body></html>";
         }
         response.body = responsebody;
@@ -140,7 +140,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
         responsebody += response.statecode + " " + response.statemsg;
         responsebody += "</h3>\nURL: " + request.url;
         responsebody += "</h1><hr>Request: </body></html>";
-        responsebody += msg;
+        responsebody += recv_msg;
         responsebody += "<hr><em> ZhangJie's QuickServer</em>\n</body></html>";
 
         response.body = responsebody;
@@ -162,13 +162,13 @@ void HTTPSession::reset()
     have_sent = 0;
     request = std::move(HttpRequest());
     response = std::move(HttpResponse());
-    msg = std::move(std::string());
+    recv_msg = std::move(std::string());
     send_msg = std::move(std::string());
 }
 
 int HTTPSession::readRequest(int epfd, int fd)
 {
-    int ret = readmsg(epfd, fd, msg);
+    int ret = readmsg(epfd, fd, recv_msg);
 
     if (ret == 1)
     {
@@ -188,7 +188,7 @@ int HTTPSession::readRequest(int epfd, int fd)
 
     try
     {
-        prased = praseHttpRequest(msg, request);
+        prased = praseHttpRequest(recv_msg, request);
     }
     catch (std::exception &e)
     {
@@ -197,7 +197,7 @@ int HTTPSession::readRequest(int epfd, int fd)
 
     if (!prased)
     {
-        /* here should send error msg to client. */
+        /* here should send error recv_msg to client. */
         perror("http request non-completed. ");
         removeFd(epfd, fd);
         reset();
