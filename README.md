@@ -1,10 +1,13 @@
 # QuickServer
-A C++ High Performance Network Server (v0.3).
+A C++ High Performance Network Server (v0.4).
 
 ## Introduce
  * 基于 epoll 的 I / O 复用机制， 采取 Reactor 事件处理模式，实现高性能服务器程序框架
  * 多线程为半同步 / 半异步模式，异步线程监听到客户请求后通过条件变量随机唤醒睡眠的工作线程
- * 应用层实现了简单的HTTP服务器HttpSession，服务器实现了HTTP的解析和Get方法请求，目前支持静态资源访问
+ * 应用层实现了简单的HTTP服务器HttpSession，能够解析HTTP协议和Get方法请求
+ 	* 目前支持静态资源访问
+	* 支持长连接
+	* 支持优雅关闭连接
 
 ## Tech
  * 线程池及线程同步采用 C++ 11 Thread 库实现
@@ -14,9 +17,10 @@ A C++ High Performance Network Server (v0.3).
  * 成功连接的 Socket 采用边缘触发（ET）和非阻塞模式，并设置 EPOLLONESHOOT 标志位
 
  * 关闭连接的情形
-   * 通常情况下，由服务器主动发起FIN关闭连接
-   * 客户端发送FIN关闭连接后，服务器等待剩余数据发送完成再close
-   * 如果连接出错，服务器直接close
+   * 通常情况下，由数据发送方确定时间主动关闭连接
+   * 数据发送方等待数据发送完成，关闭写端，shutdown(fd, SHUT_WR), 等下一次read返回0，再close
+   * 避免数据发送方直接close且本地读缓存非空时，向对端发送RST，导致对端数据读不完整
+   * 如果连接出错，本地直接close
 
 ## Run  
 	$ cd build/

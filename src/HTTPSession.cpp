@@ -64,7 +64,7 @@ bool HTTPSession::praseHttpRequest(std::string &recv_msg, HttpRequest &request)
         }
 
         /* have read http head */
-        if (request.header.count("Connection") && request.header["Connection"] == "Keep-Alive")
+        if (request.header.count("Connection") && request.header["Connection"] == "keep-alive")
         {
             keep_alive = true;
         }
@@ -90,7 +90,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
         response.header.insert(std::make_pair(key, val));
 
         key = "Connection";
-        val = "Keep-Alive";
+        val = "keep-alive";
         response.header.insert(std::make_pair(key, val));
 
         /*deal with body*/
@@ -178,7 +178,7 @@ void HTTPSession::reset()
 int HTTPSession::readRequest(int epfd, int fd)
 {
     std::string msg_peek;
-    int n_to_read = INT32_MAX;
+    int n_to_read = READBUFSIZ;
     int ret = readmsg(epfd, fd, msg_peek, n_to_read, MSG_PEEK);
 
     bool prased = false;
@@ -226,13 +226,14 @@ int HTTPSession::readRequest(int epfd, int fd)
         }
         else
         {
-            n_to_read = INT32_MAX;
+            n_to_read = READBUFSIZ;
         }
 
         ret = readmsg(epfd, fd, recv_msg, n_to_read, 0);
         prased = praseHttpRequest(recv_msg, request);
         processHttp(request, response);
         modFd(epfd, fd, EPOLLOUT, true);
+        return 1;
     }
 }
 
@@ -261,26 +262,18 @@ int HTTPSession::writeResponse(int epfd, int fd)
         else
         {
             // send all send_msg
-            if (keep_alive)
+            if (!keep_alive)
             {
-                send_msg.clear();
-                modFd(epfd, fd, EPOLLIN, true);
-                return 0;
+                shutdown(fd, SHUT_WR);  // close writing port for non-long connection
             }
-            else
-            {
-                removeFd(epfd, fd);
-                reset();
-                return 0;
-            }
+
+            modFd(epfd, fd, EPOLLIN, true);
+            return 0;
         }
     }
     else
     {
-        if (!keep_alive)
-        {
-            shutdown(fd, SHUT_WR); // close writing port
-        }
+        removeFd(epfd, fd);
         modFd(epfd, fd, EPOLLIN, true);
         return 0;
     }

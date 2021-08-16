@@ -39,7 +39,7 @@ int initSocket(const char *ip, int port)
         perror("setsockopt error. ");
         exit(1);
     }
-    
+
     ret = bind(lfd, (struct sockaddr *)&serv, sizeof(serv));
     if (ret < 0)
     {
@@ -122,7 +122,8 @@ int readmsg(int epfd, int fd, std::string &msg, int& n_to_read, int flags)
                 modFd(epfd, fd, EPOLLIN, true);
                 break;
             }
-        
+
+            perror("msg_peek errno ");
             return -1;
         }
         else
@@ -131,6 +132,10 @@ int readmsg(int epfd, int fd, std::string &msg, int& n_to_read, int flags)
             std::string tmp(readbuf);
             msg += tmp;
             // continue read
+            if(flags == MSG_PEEK)
+            {
+                break;
+            }
         }
     }
 
