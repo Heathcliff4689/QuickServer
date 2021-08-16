@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-.././include/HTTPSession.h
+../include/HTTPSession.h
 string
 -
 sstream
@@ -14,11 +14,11 @@ sstream
 map
 -
 utils.h
-.././include/utils.h
+../include/utils.h
 ThreadPool.h
-.././include/ThreadPool.h
+../include/ThreadPool.h
 
-.././include/ThreadPool.h
+../include/ThreadPool.h
 iostream
 -
 functional
@@ -34,7 +34,7 @@ mutex
 condition_variable
 -
 
-.././include/utils.h
+../include/utils.h
 sys/socket.h
 -
 sys/types.h
@@ -62,27 +62,9 @@ signal.h
 assert.h
 -
 
-/home/z/QuickServer/QuickServer/src/HTTPSession.cpp
+/home/j/Documents/QuickServer/src/HTTPSession.cpp
 HTTPSession.h
-/home/z/QuickServer/QuickServer/src/HTTPSession.h
+/home/j/Documents/QuickServer/src/HTTPSession.h
 exception
 -
-
-/home/z/QuickServer/QuickServer/src/ThreadPool.cpp
-ThreadPool.h
-/home/z/QuickServer/QuickServer/src/ThreadPool.h
-
-/home/z/QuickServer/QuickServer/src/demo.cpp
-iostream
--
-vector
--
-HTTPSession.h
-/home/z/QuickServer/QuickServer/src/HTTPSession.h
-ThreadPool.h
-/home/z/QuickServer/QuickServer/src/ThreadPool.h
-
-/home/z/QuickServer/QuickServer/src/utils.cpp
-utils.h
-/home/z/QuickServer/QuickServer/src/utils.h
 

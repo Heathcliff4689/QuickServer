@@ -4,10 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/z/QuickServer/QuickServer/src/HTTPSession.cpp" "/home/z/QuickServer/QuickServer/build/CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o"
-  "/home/z/QuickServer/QuickServer/src/ThreadPool.cpp" "/home/z/QuickServer/QuickServer/build/CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o"
-  "/home/z/QuickServer/QuickServer/src/demo.cpp" "/home/z/QuickServer/QuickServer/build/CMakeFiles/QuickServer.dir/src/demo.cpp.o"
-  "/home/z/QuickServer/QuickServer/src/utils.cpp" "/home/z/QuickServer/QuickServer/build/CMakeFiles/QuickServer.dir/src/utils.cpp.o"
+  "/home/j/Documents/QuickServer/src/HTTPSession.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o"
+  "/home/j/Documents/QuickServer/src/ThreadPool.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o"
+  "/home/j/Documents/QuickServer/src/demo.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/demo.cpp.o"
+  "/home/j/Documents/QuickServer/src/utils.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/utils.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
