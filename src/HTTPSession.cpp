@@ -9,8 +9,7 @@ HTTPSession::HTTPSession()
       request(),
       response(),
       recv_msg(),
-      send_msg(),
-      have_sent(0)
+      send_msg()
 {
 }
 
@@ -94,7 +93,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
             bzero(buf, sizeof(buf));
             int ret = read(hfd, buf, READBUFSIZ);
             close(hfd);
-            
+
             if (ret == -1)
             {
                 perror("read index.html error. ");
@@ -159,88 +158,101 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
 void HTTPSession::reset()
 {
     prase_done = false;
-    have_sent = 0;
     request = std::move(HttpRequest());
     response = std::move(HttpResponse());
-    recv_msg = std::move(std::string());
-    send_msg = std::move(std::string());
+    recv_msg.clear();
+    send_msg.clear();
 }
 
 int HTTPSession::readRequest(int epfd, int fd)
 {
-    int ret = readmsg(epfd, fd, recv_msg);
-
-    if (ret == 1)
-    {
-        /* wait for next EPOLLIN */
-        // modFd(epfd, fd, EPOLLIN, true);
-        // return 1;
-    }
-    else if (ret = -1)
-    {
-        // perror("readmsg error. ");
-        removeFd(epfd, fd);
-        reset();
-        return -1;
-    }
+    std::string msg_peek;
+    int n_to_read = INT32_MAX;
+    int ret = readmsg(epfd, fd, msg_peek, n_to_read, MSG_PEEK);
 
     bool prased = false;
-
     try
     {
-        prased = praseHttpRequest(recv_msg, request);
+        prased = praseHttpRequest(msg_peek, request);
     }
     catch (std::exception &e)
     {
-        std::cout<<e.what()<<std::endl;
+        std::cout << e.what() << std::endl;
     }
-
     if (!prased)
     {
-        /* here should send error recv_msg to client. */
-        perror("http request non-completed. ");
-        removeFd(epfd, fd);
-        reset();
-        return -1;
+        if (ret == -1 || ret == 0)
+        {
+            // perror("readmsg error. ");
+            removeFd(epfd, fd);
+            reset();
+            return -1;
+        }
+        else
+        {
+            /* wait for next EPOLLIN */
+            modFd(epfd, fd, EPOLLIN, true);
+            return 1;
+        }
     }
-    else
+    else // parsing done
     {
-        // std::cout << std::this_thread::get_id() << ": readRequest.. " << std::endl;
-        /* have read complete head and body */
+        if (request.header.count("Content-Length"))
+        {
+            n_to_read = msg_peek.find(dcrlf) + 4 + std::stoi(request.header["Content-Length"]);
+        }
+        else
+        {
+            n_to_read = INT32_MAX;
+        }
+
+        ret = readmsg(epfd, fd, recv_msg, n_to_read, 0);
+        prased = praseHttpRequest(recv_msg, request);
         processHttp(request, response);
-        /* listen write events */
-        modFd(epfd, fd, EPOLLOUT, true);
     }
 }
 
 int HTTPSession::writeResponse(int epfd, int fd)
 {
     // std::cout << std::this_thread::get_id() << ": writeResponse.. " << std::endl;
-    int ret = writemsg(epfd, fd, send_msg, have_sent);
-    if (ret == -1)
+    int have_sent = 0;
+    int ret;
+    while (send_msg.size() != 0)
     {
-        /* close connection. */
-        perror("writemsg error. ");
-        removeFd(epfd, fd);
-        reset();
-        return -1;
-    }
-    else if (ret == 1)
-    {
-        modFd(epfd, fd, EPOLLOUT, true);
-        return 1;
-    }
-    else
-    {
-        if (have_sent != send_msg.size())
+        ret = writemsg(epfd, fd, send_msg, have_sent);
+        if (ret == -1)
         {
-            // std::cout << "writeResponse done, but send_msg len error. " << std::endl;
+            /* close connection. */
+            perror("writemsg error. ");
+            removeFd(epfd, fd);
+            reset();
+            return -1;
         }
+        else if(have_sent < send_msg.size())
+        {
+            send_msg = send_msg.substr(have_sent);
+            modFd(epfd, fd, EPOLLOUT, true);
+            return 1;
+        }
+        else
+        {
+            // send all send_msg
+            send_msg.clear();
+            modFd(epfd, fd, EPOLLIN, true);
+            return 0;
+        }
+        // else
+        // {
+        //     if (have_sent != send_msg.size())
+        //     {
+        //         // std::cout << "writeResponse done, but send_msg len error. " << std::endl;
+        //     }
 
-        // modFd(epfd, fd, EPOLLIN, true);
-        removeFd(epfd, fd);
-        reset();
+        //     // modFd(epfd, fd, EPOLLIN, true);
+        //     removeFd(epfd, fd);
+        //     reset();
 
-        return 0;
+        //     return 0;
+        // }
     }
 }

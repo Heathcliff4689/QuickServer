@@ -37,7 +37,7 @@ public:
     HttpResponse response;
     std::string recv_msg;
     std::string send_msg;
-    int have_sent;
+    
 
 public:
     HTTPSession();

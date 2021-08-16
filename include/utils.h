@@ -31,6 +31,13 @@ void removeFd(int epfd, int fd);
 
 void modFd(int epfd, int fd, int EVENT, bool oneshoot);
 
-int readmsg(int epfd, int fd, std::string& msg);
+int readmsg(int epfd, int fd, std::string &msg, int& n_to_read, int flags);
+/*
+ * read n bytes, and alternative MSG_PEEK 
+ * return: 
+ *         -1  err
+ *          0  file end
+ *          1  read n_to_read(input) - n_to_read(output) bytes
+ */
 
 int writemsg(int epfg, int fd, const std::string& msg, int& have_sent);
