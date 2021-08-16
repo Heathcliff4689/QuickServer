@@ -30,6 +30,7 @@ class HTTPSession
 {
 private:
     bool prase_done;
+    bool keep_alive;
     const std::string crlf, dcrlf;
 
 public:
