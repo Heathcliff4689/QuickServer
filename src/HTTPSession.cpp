@@ -4,6 +4,7 @@
 
 HTTPSession::HTTPSession()
     : prase_done(false),
+      keep_alive(false),
       crlf("\r\n"),
       dcrlf("\r\n\r\n"),
       request(),
@@ -63,6 +64,11 @@ bool HTTPSession::praseHttpRequest(std::string &recv_msg, HttpRequest &request)
         }
 
         /* have read http head */
+        if (request.header.count("Connection") && request.header["Connection"] == "Keep-Alive")
+        {
+            keep_alive = true;
+        }
+
         checked = recv_msg.find(dcrlf) + 4;
         std::string body = recv_msg.substr(checked);
         prase_done = true;
@@ -81,6 +87,10 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
         /* deal with response head */
         std::string key = "Content-type";
         std::string val = "text/html; charset=utf-8";
+        response.header.insert(std::make_pair(key, val));
+
+        key = "Connection";
+        val = "Keep-Alive";
         response.header.insert(std::make_pair(key, val));
 
         /*deal with body*/
@@ -158,6 +168,7 @@ void HTTPSession::processHttp(HttpRequest &request, HttpResponse &response)
 void HTTPSession::reset()
 {
     prase_done = false;
+    keep_alive = false;
     request = std::move(HttpRequest());
     response = std::move(HttpResponse());
     recv_msg.clear();
@@ -181,12 +192,24 @@ int HTTPSession::readRequest(int epfd, int fd)
     }
     if (!prased)
     {
-        if (ret == -1 || ret == 0)
+        if (ret == -1)
         {
             // perror("readmsg error. ");
             removeFd(epfd, fd);
             reset();
             return -1;
+        }
+        else if (ret == 0)
+        {
+            if (send_msg.size() == 0)
+            {
+                removeFd(epfd, fd);
+                reset();
+                return 0;
+            }
+            // read file end, listen to output
+            modFd(epfd, fd, EPOLLOUT, true);
+            return 0;
         }
         else
         {
@@ -209,6 +232,7 @@ int HTTPSession::readRequest(int epfd, int fd)
         ret = readmsg(epfd, fd, recv_msg, n_to_read, 0);
         prased = praseHttpRequest(recv_msg, request);
         processHttp(request, response);
+        modFd(epfd, fd, EPOLLOUT, true);
     }
 }
 
@@ -217,7 +241,7 @@ int HTTPSession::writeResponse(int epfd, int fd)
     // std::cout << std::this_thread::get_id() << ": writeResponse.. " << std::endl;
     int have_sent = 0;
     int ret;
-    while (send_msg.size() != 0)
+    if (send_msg.size() != 0)
     {
         ret = writemsg(epfd, fd, send_msg, have_sent);
         if (ret == -1)
@@ -228,7 +252,7 @@ int HTTPSession::writeResponse(int epfd, int fd)
             reset();
             return -1;
         }
-        else if(have_sent < send_msg.size())
+        else if (have_sent < send_msg.size())
         {
             send_msg = send_msg.substr(have_sent);
             modFd(epfd, fd, EPOLLOUT, true);
@@ -237,22 +261,27 @@ int HTTPSession::writeResponse(int epfd, int fd)
         else
         {
             // send all send_msg
-            send_msg.clear();
-            modFd(epfd, fd, EPOLLIN, true);
-            return 0;
+            if (keep_alive)
+            {
+                send_msg.clear();
+                modFd(epfd, fd, EPOLLIN, true);
+                return 0;
+            }
+            else
+            {
+                removeFd(epfd, fd);
+                reset();
+                return 0;
+            }
         }
-        // else
-        // {
-        //     if (have_sent != send_msg.size())
-        //     {
-        //         // std::cout << "writeResponse done, but send_msg len error. " << std::endl;
-        //     }
-
-        //     // modFd(epfd, fd, EPOLLIN, true);
-        //     removeFd(epfd, fd);
-        //     reset();
-
-        //     return 0;
-        // }
+    }
+    else
+    {
+        if (!keep_alive)
+        {
+            shutdown(fd, SHUT_WR); // close writing port
+        }
+        modFd(epfd, fd, EPOLLIN, true);
+        return 0;
     }
 }

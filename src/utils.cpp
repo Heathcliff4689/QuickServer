@@ -31,7 +31,15 @@ int initSocket(const char *ip, int port)
     inet_pton(PF_INET, ip, &serv.sin_addr);
 
     int ret = 0;
+    int on = 1;
+    ret = setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
 
+    if (ret < 0)
+    {
+        perror("setsockopt error. ");
+        exit(1);
+    }
+    
     ret = bind(lfd, (struct sockaddr *)&serv, sizeof(serv));
     if (ret < 0)
     {
