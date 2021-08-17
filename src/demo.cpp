@@ -7,15 +7,15 @@
 
 int main(int argc, char* argv[])
 {   
-    // if(argc < 3)
-    // {
-    //     std::cout<<"Input the port & thread number you need, PLZ. \n";
-    //     return 1;
-    // }
+    if(argc < 3)
+    {
+        std::cout<<"Input the port & thread number you need, PLZ. \n";
+        return 1;
+    }
 
     const char *ip = "127.0.0.1";
-    // const int port = std::stoi(argv[1]);
-    const int port = 8080;
+    const int port = std::stoi(argv[1]);
+    // const int port = 8080;
     // timeout, ms
     const int timeout = 10 * 1000;
 
@@ -26,17 +26,17 @@ int main(int argc, char* argv[])
     epoll_event events[MAX_EVENT_NUMBER];
     std::vector<HTTPSession> Sess(MAX_FD);
     
-    // int threads = std::stoi(argv[2]);
-    // if(threads <1)
-    // {
-    //     threads = 2;
-    // }
-    // else if(threads > 16)
-    // {
-    //     threads = 16;
-    // } 
+    int threads = std::stoi(argv[2]);
+    if(threads <1)
+    {
+        threads = 2;
+    }
+    else if(threads > 16)
+    {
+        threads = 16;
+    } 
     
-    // ThreadPool pool(threads);
+    ThreadPool pool(threads);
 
     TimerManager timer;
 
@@ -102,26 +102,26 @@ int main(int argc, char* argv[])
                     
                     /* read */
                     // std::cout<<"EPOLLIN activating..\n";
-                    // pool.addTask(std::bind(
-                    //     &HTTPSession::readRequest,
-                    //     &Sess[sockfd],
-                    //     epfd,
-                    //     sockfd
-                    //     ));
-                    Sess[sockfd].readRequest(epfd, sockfd);
+                    pool.addTask(std::bind(
+                        &HTTPSession::readRequest,
+                        &Sess[sockfd],
+                        epfd,
+                        sockfd
+                        ));
+                    // Sess[sockfd].readRequest(epfd, sockfd);
                     
                 }
                 else if(events[i].events & EPOLLOUT)
                 {
                     /* write */
                     // std::cout<<"EPOLLOUT activating..\n";
-                    // pool.addTask(std::bind(
-                    //     &HTTPSession::writeResponse,
-                    //     &Sess[sockfd],
-                    //     epfd,
-                    //     sockfd
-                    // ));
-                    Sess[sockfd].writeResponse(epfd, sockfd);
+                    pool.addTask(std::bind(
+                        &HTTPSession::writeResponse,
+                        &Sess[sockfd],
+                        epfd,
+                        sockfd
+                    ));
+                    // Sess[sockfd].writeResponse(epfd, sockfd);
                 }
                 else
                 {

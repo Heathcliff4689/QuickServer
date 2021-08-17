@@ -49,10 +49,10 @@ void TimerManager::delTimer(int key)
 void TimerManager::takeAllTimeout()
 {
     unsigned long long now = getCurrentMillisecs();
-    for(auto timer: rbtree)
-    {
-        std::cout<< timer->id<<": "<<timer->getExpire() - now<<"\n";
-    }
+    // for(auto timer: rbtree)
+    // {
+    //     std::cout<< timer->id<<": "<<timer->getExpire() - now<<"\n";
+    // }
 
     while(!rbtree.empty())
     {
