@@ -9,8 +9,12 @@ CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o: ../src/HTTPSession.cpp
 CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o: ../include/ThreadPool.h
 CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o: ../src/ThreadPool.cpp
 
+CMakeFiles/QuickServer.dir/src/Timer.cpp.o: ../include/Timer.h
+CMakeFiles/QuickServer.dir/src/Timer.cpp.o: ../src/Timer.cpp
+
 CMakeFiles/QuickServer.dir/src/demo.cpp.o: ../include/HTTPSession.h
 CMakeFiles/QuickServer.dir/src/demo.cpp.o: ../include/ThreadPool.h
+CMakeFiles/QuickServer.dir/src/demo.cpp.o: ../include/Timer.h
 CMakeFiles/QuickServer.dir/src/demo.cpp.o: ../include/utils.h
 CMakeFiles/QuickServer.dir/src/demo.cpp.o: ../src/demo.cpp
 

@@ -274,7 +274,7 @@ int HTTPSession::writeResponse(int epfd, int fd)
     else
     {
         removeFd(epfd, fd);
-        modFd(epfd, fd, EPOLLIN, true);
+        reset();
         return 0;
     }
 }

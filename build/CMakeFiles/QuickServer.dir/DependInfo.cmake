@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/j/Documents/QuickServer/src/HTTPSession.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o"
   "/home/j/Documents/QuickServer/src/ThreadPool.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o"
+  "/home/j/Documents/QuickServer/src/Timer.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/Timer.cpp.o"
   "/home/j/Documents/QuickServer/src/demo.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/demo.cpp.o"
   "/home/j/Documents/QuickServer/src/utils.cpp" "/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir/src/utils.cpp.o"
   )

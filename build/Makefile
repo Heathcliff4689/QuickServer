@@ -177,6 +177,33 @@ src/ThreadPool.cpp.s:
 	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.s
 .PHONY : src/ThreadPool.cpp.s
 
+src/Timer.o: src/Timer.cpp.o
+
+.PHONY : src/Timer.o
+
+# target to build an object file
+src/Timer.cpp.o:
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/Timer.cpp.o
+.PHONY : src/Timer.cpp.o
+
+src/Timer.i: src/Timer.cpp.i
+
+.PHONY : src/Timer.i
+
+# target to preprocess a source file
+src/Timer.cpp.i:
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/Timer.cpp.i
+.PHONY : src/Timer.cpp.i
+
+src/Timer.s: src/Timer.cpp.s
+
+.PHONY : src/Timer.s
+
+# target to generate assembly for a file
+src/Timer.cpp.s:
+	$(MAKE) -f CMakeFiles/QuickServer.dir/build.make CMakeFiles/QuickServer.dir/src/Timer.cpp.s
+.PHONY : src/Timer.cpp.s
+
 src/demo.o: src/demo.cpp.o
 
 .PHONY : src/demo.o
@@ -246,6 +273,9 @@ help:
 	@echo "... src/ThreadPool.o"
 	@echo "... src/ThreadPool.i"
 	@echo "... src/ThreadPool.s"
+	@echo "... src/Timer.o"
+	@echo "... src/Timer.i"
+	@echo "... src/Timer.s"
 	@echo "... src/demo.o"
 	@echo "... src/demo.i"
 	@echo "... src/demo.s"

@@ -1,1 +1,1 @@
-/usr/bin/c++   -std=c++11 -pthread -g  -rdynamic CMakeFiles/QuickServer.dir/src/demo.cpp.o CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o CMakeFiles/QuickServer.dir/src/utils.cpp.o CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o  -o QuickServer 
+/usr/bin/c++   -std=c++11 -pthread -g  -rdynamic CMakeFiles/QuickServer.dir/src/demo.cpp.o CMakeFiles/QuickServer.dir/src/HTTPSession.cpp.o CMakeFiles/QuickServer.dir/src/utils.cpp.o CMakeFiles/QuickServer.dir/src/ThreadPool.cpp.o CMakeFiles/QuickServer.dir/src/Timer.cpp.o  -o QuickServer 

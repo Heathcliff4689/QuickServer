@@ -3,6 +3,7 @@
 
 #include "HTTPSession.h"
 #include "ThreadPool.h"
+#include "Timer.h"
 
 int main(int argc, char* argv[])
 {   
@@ -15,11 +16,13 @@ int main(int argc, char* argv[])
     const char *ip = "127.0.0.1";
     // const int port = std::stoi(argv[1]);
     const int port = 8080;
+    // timeout, ms
+    const int timeout = 10 * 1000;
 
     addsig(SIGPIPE, SIG_IGN, true);
 
     int lfd = initSocket(ip, port);
-
+    
     epoll_event events[MAX_EVENT_NUMBER];
     std::vector<HTTPSession> Sess(MAX_FD);
     
@@ -34,6 +37,8 @@ int main(int argc, char* argv[])
     // } 
     
     // ThreadPool pool(threads);
+
+    TimerManager timer;
 
     int epfd = epoll_create(5);
     if (epfd < 0)
@@ -51,7 +56,10 @@ int main(int argc, char* argv[])
     std::cout<<"listening..\n";
     while (1)
     {   
-        
+        {
+            timer.takeAllTimeout();
+        }
+
         int nfds = epoll_wait(epfd, events, MAX_EVENT_NUMBER, -1);
         if ((nfds < 0) && (errno != EINTR))
         {
@@ -76,6 +84,8 @@ int main(int argc, char* argv[])
                 else
                 {
                     addFd(epfd, connfd, true);
+                    timer.delTimer(connfd);
+                    timer.addTimer(timeout, connfd, std::bind(removeFd, epfd, connfd));
                 }
             }
             else
@@ -89,6 +99,7 @@ int main(int argc, char* argv[])
                 }
                 else if(events[i].events & EPOLLIN)
                 {
+                    
                     /* read */
                     // std::cout<<"EPOLLIN activating..\n";
                     // pool.addTask(std::bind(
@@ -116,6 +127,11 @@ int main(int argc, char* argv[])
                 {
                     /* others */
                     std::cout<<"undefined events in epfd. "<<std::endl;
+                }
+
+                {
+                    timer.delTimer(sockfd);
+                    timer.addTimer(timeout, sockfd, std::bind(removeFd, epfd, sockfd));
                 }
 
             }
