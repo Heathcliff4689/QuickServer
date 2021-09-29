@@ -30,14 +30,15 @@ class HTTPSession
 {
 private:
     bool prase_done;
+    bool keep_alive;
     const std::string crlf, dcrlf;
 
 public:
     HttpRequest request;
     HttpResponse response;
-    std::string msg;
+    std::string recv_msg;
     std::string send_msg;
-    int have_sent;
+    
 
 public:
     HTTPSession();
@@ -51,7 +52,7 @@ public:
 
 private:
     // return true while have read complete http head, otherwise false.
-    bool praseHttpRequest(std::string &msg, HttpRequest &request);
+    bool praseHttpRequest(std::string &recv_msg, HttpRequest &request);
     void processHttp(HttpRequest &request, HttpResponse &response);
 
 };

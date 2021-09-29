@@ -1,0 +1,4 @@
+.vscode
+build/CMake*
+build/cmake*
+bulid/.Make

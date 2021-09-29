@@ -31,6 +31,14 @@ int initSocket(const char *ip, int port)
     inet_pton(PF_INET, ip, &serv.sin_addr);
 
     int ret = 0;
+    int on = 1;
+    ret = setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(on));
+
+    if (ret < 0)
+    {
+        perror("setsockopt error. ");
+        exit(1);
+    }
 
     ret = bind(lfd, (struct sockaddr *)&serv, sizeof(serv));
     if (ret < 0)
@@ -87,34 +95,47 @@ void modFd(int epfd, int fd, int EVENT, bool oneshoot = true)
     epoll_ctl(epfd, EPOLL_CTL_MOD, fd, &ev);
 }
 
-int readmsg(int epfd, int fd, std::string &msg)
+int readmsg(int epfd, int fd, std::string &msg, int& n_to_read, int flags)
 {
     int nrds = 0;
     char readbuf[READBUFSIZ];
 
     while (1)
     {
+        if(n_to_read == 0)
+        {
+            break;
+        }
+
         bzero(readbuf, sizeof(readbuf));
-        nrds = recv(fd, readbuf, READBUFSIZ, 0);
+        nrds = recv(fd, readbuf, n_to_read, flags);
         if (nrds == 0)
         {
             return 0;
         }
         else if (nrds == -1)
         {
+            if(errno == EINTR) { continue;}
+            
             if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
                 modFd(epfd, fd, EPOLLIN, true);
                 break;
             }
-        
+
+            perror("msg_peek errno ");
             return -1;
         }
         else
         {
+            n_to_read -= nrds;
             std::string tmp(readbuf);
             msg += tmp;
             // continue read
+            if(flags == MSG_PEEK)
+            {
+                break;
+            }
         }
     }
 

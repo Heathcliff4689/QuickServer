@@ -8,4 +8,4 @@ SET(CMAKE_CXX_FLAGS "${CAMKE_CXX_FLAGS} -std=c++11 -pthread")
 
 include_directories(./include)
 
-add_executable(demo src/demo.cpp src/HTTPSession.cpp src/utils.cpp src/ThreadPool.cpp)
+add_executable(QuickServer src/demo.cpp src/HTTPSession.cpp src/utils.cpp src/ThreadPool.cpp src/Timer.cpp)

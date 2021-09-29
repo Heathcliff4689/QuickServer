@@ -1,3 +1,0 @@
-/home/z/INETServer/build/CMakeFiles/rebuild_cache.dir
-/home/z/INETServer/build/CMakeFiles/demo.dir
-/home/z/INETServer/build/CMakeFiles/edit_cache.dir
