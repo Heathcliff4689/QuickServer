@@ -1,3 +1,0 @@
-/home/j/Documents/QuickServer/build/CMakeFiles/rebuild_cache.dir
-/home/j/Documents/QuickServer/build/CMakeFiles/edit_cache.dir
-/home/j/Documents/QuickServer/build/CMakeFiles/QuickServer.dir
